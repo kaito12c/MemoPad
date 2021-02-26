@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <title>sample</title>
+</head>
+<body>
+ <p id="question">質問</p><span></span>
+    <script>
+        const list1 = ["大吉","中吉","小吉","吉"];
+        const random =Math.floor(Math.random() * list1. length);
+        // list要素でアクセス
+        
+            console.log(list1[random])
+        // ボタンを押すと、質問が出てくる仕組みを可能に。
+        const list2 =["30歳になったときどのような大人に思われたいですか？",
+         "40歳になったとき、どういう気持ちでいたいですか？",
+         "50歳になったとき、どのような自分でいたいですか？",
+         "60歳になったとき、どのような人生だったと思いたいですか？"
+        ];
+        const random1 = Math.floor(Math.random() * list2.length); 
+        let str = list2[random1]
+        $("#question").html(list2[random1]);
+
+
+        const list3 = [1,2,3,7];
+        list3.push(9);
+        console.log(list3);  
+        // pushは「破壊的変更」という追加できる
+
+        const list4=[1000,700,30, 2000, 100]
+        console.log(Math.max(...list4));
+        // MAXの値を取りたい時に使う。
+        
+    </script>
+</body>
+</html>

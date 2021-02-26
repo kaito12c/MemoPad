@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <ul class="top">
+     <title>フリカエルCoach</title>
+  </ul>
+  <script src="js/jquery-2.1.3.min.js"></script>
+  <link rel="stylesheet" href="css/sample.css">
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+  <header>
+    <img src="images/kae-migi.png" alt="top-img" class="top-img">
+    <h1>フリカエルCoach</h1>
+    <img src="images/Footer.png" alt="Footer" class="top-img"></img>
+  </header>
+  <main style="display: none;">
+    <ul>
+      <li id="now" class="date">今日の日付</li>
+      <li class="title-date">一言で今日を表すとどんな日？</li>
+      <li><input type="text" id="what-today" class="what-today"></input></li>
+    </ul>
+    <ul>
+      <li class="title">本日の質問</li>
+      <li id="question" class="">ここに質問を表示</li>
+    </ul>
+    <ul>
+      <li class="title">本日の回答</li>
+      <textarea name="" id="key" class="memo"></textarea>
+    </ul>
+    </ul>
+    <ul class="form-item">
+      <li class="title">質問に対する答えのしっくり度</li>
+      <input type="radio" name="kind" id="max" class="form-label" value="しっくりきた"><label for="max"><img src="images/very-shikkuri.png" alt="しっくりきた" class="select-btn">しっくりきた</label>
+      <input type="radio" name="kind" id="good" class="form-label"value="そこそこしっくりきた"><label for="good"><img src="images/shikkuri.png" alt="しっくりきた" class="select-btn">そこそこしっくりきた</label>
+      <input type="radio" name="kind" id="bad" class="form-label"value="あんまりしっくりきていない"><label for="bad"><img src="images/no-shikkuri.png" alt="しっくりきた" class="select-btn">あんまりしっくりきていない</label>
+      <input type="radio" name="kind" id="min" class="form-label" value="とりあえず書いた"><label for="min"><img src="images/shikkuri-janai.png" alt="しっくりきた" class="select-btn">とりあえず書いた</label>
+    </ul>
+    <ul>
+      <li class="title">あなたの思いを書く自由帳</li>
+      <textarea id="memo" class="memo"></textarea>
+    </ul>
+    <ul>
+      <li id="save">Save</li>
+      <li id="clear">Clear</li>
+      <li id="all-clear">全消し</li>
+    </ul>
+  </main>
+  <table id="list">
+    <!-- ここに追加データが挿入される -->
+  </table>
+  <button type="er-button" id="er-button" class="er-button">削除</button>
+
+  <footer id="footer" class="footer"><small>今日もフリカエルしよう。</small>
+  </footer>
+
+  <script>
+    $('#max').html('<img src="images/very-shikkuri.png" alt="しっくりきた">');
+    $('#good').html('<img src="images/very-shikkuri.png" alt="しっくりきた">');
+    $('#bad').html('<img src="images/very-shikkuri.png" alt="しっくりきた">');
+    $('#min').html('<img src="images/very-shikkuri.png" alt="しっくりきた">');
+    $("main").fadeIn(1000);
+    const list2 =["今日1日感謝したいことはどんなこと？",
+         "もし今日をやり直せるとしたら何をやり直したい？",
+         "今日は100%中何％充実していた？またそれはどうして？",
+         "明日の自分が充実するためにアドバイスがあるとしたらどんなこと？",
+         "明日を今日よりよくできるとしたらどんなことを工夫する？"
+        ];
+        const random1 = Math.floor(Math.random() * list2.length); 
+        let str = list2[random1];
+        $("#question").html(str);
+        console.log(str)
+    // listに日付、質問に対する応え、しっくり度、ラジオボタンの結果、
+    $(function () {
+      var now = new Date();
+      var y = now.getFullYear();
+      var m = now.getMonth() + 1;
+      var d = now.getDate();
+      var w = now.getDay();
+      var wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      var h = now.getHours();
+      var mi = now.getMinutes();
+      console.log(wd[w]);
+      var youbi = wd[w];
+      console.log(youbi);
+      var t = `${y}/${m}/${d}/${h}:${mi}(${youbi})`;
+      console.log(t, "datesss")
+      $('#now').html(t)
+      //1.Save クリックイベント
+      $("#save").on("click", function () {
+        function returnYear() {
+          return new Date().getFullYear();
+        }
+        function returnMonth() {
+          return new Date().getMonth() + 1;
+        }
+        function returnDay() {
+          return new Date().getDay();
+        }
+        function returnDate() {
+          return new Date().getDate();
+        }
+        function returnWeekDay() {
+          return new Date().getDay();
+        }
+        function returnHours() {
+          return new Date().getHours();
+        }
+        function returnMinutes() {
+          return new Date().getMinutes();
+        }
+        var wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const date = $("#what-today").val();
+        const key = $("#key").val();
+        const value = $("#memo").val();
+        const pochi = $('input[name="kind"]:checked').val();
+        let year = returnYear();
+        let Month = returnMonth();
+        let Day = returnDay();
+        let Date1 = returnDate();
+        let Weekday = returnWeekDay();
+        let test = wd[Weekday]
+  
+        // Var DateArray= new Array("日","月","火","水","木","金","土");
+        // myDay     = myD.getDay();
+        // myD       = new Date();
+        // myMess2   = DateArray[myDay] + "曜日";
+        let Hours = returnHours();
+        let Minutes = returnMinutes();
+        localStorage.setItem("year", year);
+        localStorage.setItem("what-day", date);
+        localStorage.setItem("key", key);
+        localStorage.setItem("memo", value);
+        localStorage.setItem("input", pochi);
+        // 書いてある文字だけ消える。
+        $('#qs2').val("");
+        $('#now').val("");
+        $('#memo').val("");
+        $('#key').val("");
+        $('#what-today').val("");
+        $('input[name="kind"]:checked').val("");
+
+        // ここで書いたことを下に書き残せる。
+        // const html = "<tr><th>"+ key +"</th><td>"+ value +"</td></tr>";
+        const html =
+          `
+          <tr>
+            <th>日にち</th>
+            <th>今日を一言で表すと</th>
+            <th>今日の質問</th>
+            <th>質問に対する回答は</th>
+            <th>自由帳</th>
+          </tr>
+          <tr>
+            <td>${t}</td>
+            <td>${date}</td>
+            <td>${key}</td>
+            <td>${pochi}</td>
+            <td>${value}</td>
+          </tr>`;
+        $("#list").append(html);
+        alert("保存しました。今日1日お疲れ様でした！明日も自分らしく！")
+      })
+    });
+    //2.clear クリックイベント
+    $("#clear").on("click", function () {
+      const key = $("#key").val();
+      const value = $("#memo").val();
+      $('#memo').val("");
+      $('#key').val("");
+      $('#what-today').val("");
+      $('input[name="kind"]:checked').val("");
+      localStorage.getItem("")
+    });
+
+    $("#all-clear").on("click", function () {
+      $('#memo').val("");
+      $('#key').val("");
+      $('#what-today').val("");
+      $('input[name="kind"]:checked').val("");
+      localStorage.getItem("")
+      // ローカルストレージ全削除
+      localStorage.clear();
+      // htmlから表示を削除
+      // $("#list").empty();
+    });
+    //3.ページ読み込み：保存データ取得表示
+    if (localStorage.getItem("value")) {
+      const v = localStorage.getItem("value")
+      $("#memo").val(v);
+    }
+    //  for(let i = 0; i < localStorage.length; i++){
+    //   // keyをインデックスを使って取得する
+    //   const key = localStorage.key(i);
+    //   // valueをkeyを使って取得する
+    //       // localStorage.getItem("today", today);
+    //       // localStorage.getItem("what-day", date);
+    //       // localStorage.getItem("key", key);
+    //       // localStorage.getItem("memo", value);
+    //       // localStorage.getItem("input", pochi);  
+    //    // htmlにkeyとvalueを入れたものを設定する
+    //   //  const html = `<tr><th>${year+'/'+Month+'/'+Day + '(' + Date ')'}</th><th>${date}</th><th>${key}</th><td>${value}</td><th>${pochi}</th></tr>`;
+    //    // listにappeendする=html常に表示する。
+    //    $("#list").append(html);
+    //  };
+
+
+
+  </script>
+
+</body>
+</html>

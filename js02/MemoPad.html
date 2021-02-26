@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+// JS記述スペース
+$("main").fadeIn(1000);
+
+$("#save").on("click", function(){
+    var value = $("#text_area").val();
+    localStorage.setItem("memo",value);
+    alert(value);
+});
+
+    </script>
+</body>
+</html>
+
